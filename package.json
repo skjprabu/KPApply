@@ -1,0 +1,23 @@
+{
+  "name": "kpapply",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skjprabu/KPApply.git"
+  },
+  "author": "Perficient",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skjprabu/KPApply/issues"
+  },
+  "homepage": "https://github.com/skjprabu/KPApply#readme",
+  "devDependencies": {
+    "bower": "^1.3.1",
+    "express": "^4.7.2"
+  }
+}
