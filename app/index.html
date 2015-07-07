@@ -1,42 +1,198 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css"/>
-    
+	<title>Data store</title>
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" />
 </head>
-<body ng-app="kpapply" ng-controller="SessionController as session">
+<body>
 
-<!-- Page Content -->
-<div class="container">
-    <div ng-view=""></div>
+<div class="container-fluid">
+	<div class="navbar navbar-default">
+		<div class="navbar-header">
+			<h2>Family member applying for coverage</h2>
+		</div>
+	</div>
 </div>
-<!-- /.container -->
+
+<form role="form">
+
+<div class="container">
+
+	<!-- row 1 -->
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label>Family Member's Name</label>
+		</div>
+		<div class="col-md-2">
+			<label for="fname">First</label><br/>
+			<input type="text" name="fname" id="fname" class="form-control" />
+		</div>
+		<div class="col-md-2">
+			<label for="mname">MI</label><br/>
+			<input type="text" name="mname" id="mname" class="form-control" />
+		</div>
+		<div class="col-md-2">
+			<label for="lname">Last</label><br/>
+			<input type="text" name="lname" id="lname" class="form-control" />
+		</div>
+		<div class="col-md-2">
+			<label for="suffix">Suffix</label><br/>
+			<select name="suffix" id="suffix" class="form-control">
+				<option>  </option>
+				<option>Jr.</option>
+				<option>Sr.</option>
+			</select>
+			
+		</div>
+	</div>	
+	
+	<!-- ROW 2 -->
+	<br/>
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label for="relationship">
+				<span style="color:red;">*</span>Relationship to Primary Applicant
+			</label>
+		</div>
+		<div class="col-md-2">
+			<select name="relationship" id="relationship"  class="form-control" >
+				<option>  </option>
+				<option>Spouse</option>
+				<option>Dependent</option>
+				<option>Grandchild</option>
+				<option>Domestic Partner</option>
+			</select>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+
+	<!-- ROW 3 -->
+	<br/>
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label for="Gender">
+				<span style="color:red;">*</span>Gender
+			</label>
+		</div>
+		<div class="col-md-2">
+			<div class="radio">
+			  <label><input type="radio" name="gender">Male</label>
+			</div>
+			<div class="radio">
+			  <label><input type="radio" name="gender">Female</label>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+
+	<!-- ROW 4 -->
+	<br/>
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label for="dob">
+				<span style="color:red;">*</span>Date of Birth
+			</label>
+		</div>
+		<div class="col-md-2">
+			<div class='input-group'>
+                <input type='text' name="dob" class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+        	</div>
+        </div>
+		
+		<div class="col-md-4"></div>
+	</div>
+
+	<!-- ROW 5 -->
+	<br/>
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label for="previous_customer">
+				Is the Applicant an existing or previous Kaiser Permanente member
+			</label>
+		</div>
+		<div class="col-md-2">
+			<div class="radio">
+			  <label><input type="radio" name="previous_customer" value="Yes">Yes</label>
+			</div>
+			<div class="radio">
+			  <label><input type="radio" name="previous_customer" value="No">No</label>
+			</div>
+        </div>
+		<div class="col-md-4"></div>
+	</div>
 
 
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
-<script src="bower_components/ng-idle/angular-idle.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<!-- ROW 6 -->
+	<br/>
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label for="prev_state">
+				Prior Coverage in State?
+			</label>
+		</div>
+		<div class="col-md-2">
+			<select name="prev_state" id="prev_state"  class="form-control" >
+				<option>MD</option>
+				<option>CA</option>
+			</select>
+        </div>
+		<div class="col-md-4"></div>
+	</div>
+
+	<!-- ROW 7 -->
+	<br/>
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label for="medicalrno">
+				Medical Record Number
+			</label>
+		</div>
+		<div class="col-md-2">
+			<input type="text" name="medicalrno" id="medicalrno" class="form-control" />
+        </div>
+		<div class="col-md-4"></div>
+	</div>
 
 
-<script src="app.js"></script>
-<script src="scripts/controllers/mainController.js"></script>
-<script src="scripts/controllers/sessionController.js"></script>
-<script src="scripts/services/authenticationHttpResponseInterceptor.js"></script>
-<script src="scripts/utils/sessionTimeoutDialog.js"></script>
+	<!-- ROW 8 -->
+	<br/>
+	<div class="row text-left">
+		<div class="col-md-4">
+			<label for="termination">
+				termination Date, if applicable
+			</label>
+		</div>
+		<div class="col-md-2">
+			<div class='input-group'>
+                <input type='text' name="termination" id="termination" class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+        	</div>
+        </div>
+		<div class="col-md-4"></div>
+	</div>
 
+	<!-- ROW 9 -->
+	<br/>
+	<br/>
+	<div class="row text-left">
+	<div class="col-md-3 col-md-offset-2">
+		<input type="submit" value="submit" class="form-control" />
+	</div>
+<!-- 	<div class="col-md-3 col-md-offset-2">
+		<input type="reset" value="reset" class="form-control" />
+	</div> -->
+	</div>
 
+</div>
+</form>
+
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>
