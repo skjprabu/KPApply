@@ -10,7 +10,8 @@
 angular.module('kpapply')
     .controller('AddMemberController', ['$scope', '$log','$http', function ($scope, $log, $http) {
         $scope.memberData = {'gender': 'Male', 'previous_customer': 'Yes'};
-        var logger = $log.getInstance('MainController');
+        var logger = $log.getInstance('addMemberCOntroller');
+        logger.info("alpha");
 
 
         $scope.addMember = function (memberData){

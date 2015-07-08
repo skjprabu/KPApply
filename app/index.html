@@ -4,13 +4,19 @@
 	<title>Data store</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css"/>
+		<link type="image/ico" href="https://healthy.kaiserpermanente.org/static/consumer/consumernet/theme/styles/private/images/kp.ico" rel="shortcut icon" />
+
 </head>
 <body ng-app="kpapply">
+
+<div ng-controller="SessionController as session">
+    <button ng-click="login()">Start session</button>
+</div>
 
 <div class="container-fluid">
 	<div class="navbar navbar-default">
 		<div class="navbar-header">
-			<h2>Family member applying for coverage</h2>
+			<h2 style="margin-left: 5px"> Family Member Applying for Coverage</h2>
 		</div>
 	</div>
 </div>
@@ -23,11 +29,11 @@
 	<!-- row 1 -->
 	<div class="row text-left">
 		<div class="col-md-4">
-			<label>Family Member's Name</label>
+			<br/><label>Family Member's Name</label>
 		</div>
 		<div class="col-md-2"
              ng-class="{'has-error': (addmemberform.$submitted || addmemberform.fname.$touched) && addmemberform.fname.$invalid}">
-			<label for="fname">First</label><br/>
+			<span style="color:red;">*</span><label for="fname">First</label><br/>
 			<input type="text" ng-model="memberData.fname" name="fname" id="fname" class="form-control" required />
 		</div>
 		<div class="col-md-2">
@@ -36,7 +42,7 @@
 		</div>
 		<div class="col-md-2"
              ng-class="{'has-error': (addmemberform.$submitted || addmemberform.lname.$touched) && addmemberform.lname.$invalid}">
-			<label for="lname">Last</label><br/>
+			<span style="color:red;">*</span><label for="lname">Last</label><br/>
 			<input type="text" ng-model="memberData.lname" name="lname" id="lname" class="form-control" required />
 		</div>
 		<div class="col-md-2">
@@ -45,11 +51,11 @@
 				<option>Jr.</option>
 				<option>Sr.</option>
 			</select>
-			
+
 		</div>
 
-	</div>	
-	
+	</div>
+
 	<!-- ROW 2 -->
 	<br/>
 	<div class="row text-left">
@@ -99,16 +105,16 @@
 			</label>
 		</div>
 		<div ng-controller="CalendarController as CalCtrl">
-			<div class="col-md-2">
+			<div class="col-md-3" ng-class="{'has-error': (addmemberform.$submitted || addmemberform.dob.$touched) && addmemberform.dob.$invalid}">
 				<p class='input-group'>
-					<input type="text" class="form-control" name="dob" show-button-bar="false" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" ng-required="true" max-date="maxDate" />
+					<input type="text" class="form-control" name="dob" show-button-bar="false" datepicker-popup="{{format}}" ng-model="memberData.dob" is-open="opened" ng-required="true" max-date="maxDate" />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 					</span>
 				</p>
 			</div>
 		</div>
-		
+
 		<div class="col-md-4"></div>
 	</div>
 
@@ -174,14 +180,15 @@
 				Termination Date, if applicable
 			</label>
 		</div>
-		<div class="col-md-2">
-			<div class='input-group'>
-                <input type='text' ng-model="memberData.termination" name="termination" id="termination" class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-        	</div>
-        </div>
+		<div ng-controller="CalendarController as CalCtrl">
+			<div class="col-md-3">
+				<p class='input-group'>
+					<input type="text" class="form-control" name="termination" ng-model="memberData.termination" show-button-bar="false" datepicker-popup="{{format}}" is-open="opened" max-date="maxDate" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
 		<div class="col-md-4"></div>
 	</div>
 
