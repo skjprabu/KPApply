@@ -15,9 +15,13 @@ angular.module('kpapply')
 
         $scope.addMember = function (memberData){
             logger.info("Parameter  "+memberData);
+            console.log("adding member", $scope.memberData );
             console.log("adding member", memberData);
             var parameter = JSON.stringify(memberData);
-            $http.post("/writeData",parameter);
+            $http.post("/writeData",parameter).
+                success(function(data, status, headers, config){
+                    $scope.memberData = {'gender': 'Male', 'previous_customer': 'Yes'};
+                });
         };
 
 
