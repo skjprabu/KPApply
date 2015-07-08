@@ -9,7 +9,7 @@
  */
 angular.module('kpapply')
     .controller('AddMemberController', ['$scope', function ($scope) {
-        $scope.memberData = {'previous_customer': 'Yes'};
+        $scope.memberData = {'gender': 'Male', 'previous_customer': 'Yes'};
 
 
         $scope.addMember = function (){
