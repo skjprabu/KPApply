@@ -5,6 +5,7 @@
 var express = require('express');
 var fs = require('fs');
 var jsonData = require('./applyData');
+var open = require('open');                             // opens the browser
 
 
 // Create a new Express application instance
@@ -67,5 +68,9 @@ app.listen(3000);
 // Log the server status to the console
 console.log('Server running at http://localhost:3000/');
 
+open('http://localhost:3000/', function (err) {
+      if (err) throw err;
+      console.log('The user closed the browser');
+    });
 // Use the module.exports property to expose our Express application instance for external usage
 module.exports = app;
