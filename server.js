@@ -4,6 +4,8 @@
 // Load the 'express' module
 var express = require('express');
 var fs = require('fs');
+var jsonData = require('./applyData');
+
 
 // Create a new Express application instance
 var app = express();
@@ -31,7 +33,27 @@ app.get('/login', function (req, res) {
     res.status(200);
     res.send("login");
 });
-
+// Write service
+app.get('/writeData',function(req, res){
+    if (req.query.saveData) {
+        console.log(req.query.saveData);
+        var data = JSON.parse(req.query.saveData);
+        jsonData.applyData.push(data);
+        var dataJSON = JSON.stringify(jsonData);
+        fs.writeFileSync('applyData.json', dataJSON);
+        res.status(200);
+        res.send("logged \"" + req.query.saveData + "\"");
+    }
+    else {
+        res.status(400);
+        res.send("Data missing");
+    }
+});
+// Read service
+app.get('/readData',function(req, res){
+        res.status(200);
+        res.send(JSON.stringify(jsonData));
+});
 // Logout service
 app.get('/logout', function (req, res) {
     res.status(200);
