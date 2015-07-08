@@ -98,14 +98,16 @@
 				<span style="color:red;">*</span>Date of Birth
 			</label>
 		</div>
-		<div class="col-md-2">
-        <div class='input-group'>
-                <input ng-model="memberData.dob" type='text' name="dob" class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-        	</div>
-        </div>
+		<div ng-controller="CalendarController as CalCtrl">
+			<div class="col-md-2">
+				<p class='input-group'>
+					<input type="text" class="form-control" name="dob" show-button-bar="false" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" ng-required="true" max-date="maxDate" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+		</div>
 		
 		<div class="col-md-4"></div>
 	</div>
@@ -211,6 +213,7 @@
 <script src="scripts/controllers/mainController.js"></script>
 <script src="scripts/controllers/sessionController.js"></script>
 <script src="scripts/controllers/addMemberController.js"></script>
+<script src="scripts/controllers/CalendarController.js"></script>
 <script src="scripts/services/authenticationHttpResponseInterceptor.js"></script>
 <script src="scripts/utils/sessionTimeoutDialog.js"></script>
 
