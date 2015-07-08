@@ -18,6 +18,7 @@ angular.module('kpapply')
 
             $scope.opened = true;
         };
-        $scope.format = 'yyyy/MM/dd';
+
+        $scope.format = 'dd/MM/yyyy';
         $scope.maxDate = $scope.maxDate ? null : new Date();
     });
