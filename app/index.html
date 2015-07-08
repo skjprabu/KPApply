@@ -2,9 +2,10 @@
 <html>
 <head>
 	<title>Data store</title>
-	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css"/>
 </head>
-<body>
+<body ng-app="kpapply">
 
 <div class="container-fluid">
 	<div class="navbar navbar-default">
@@ -14,7 +15,8 @@
 	</div>
 </div>
 
-<form role="form">
+<form name="addmemberform"  ng-controller="AddMemberController as addMemberController"
+	  ng-submit="addmemberform.$valid && addMember()" role="form" novalidate>
 
 <div class="container">
 
@@ -23,27 +25,30 @@
 		<div class="col-md-4">
 			<label>Family Member's Name</label>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-2" ng-class="{'has-error': !addmemberform.fname.$pristine && addmemberform.fname.$invalid}">
 			<label for="fname">First</label><br/>
-			<input type="text" name="fname" id="fname" class="form-control" />
+			<input type="text" ng-model="memberData.fname" name="fname" id="fname" class="form-control" required />
 		</div>
 		<div class="col-md-2">
 			<label for="mname">MI</label><br/>
-			<input type="text" name="mname" id="mname" class="form-control" />
+			<input type="text" ng-model="memberData.mname" name="mname" id="mname" class="form-control" />
 		</div>
 		<div class="col-md-2">
 			<label for="lname">Last</label><br/>
-			<input type="text" name="lname" id="lname" class="form-control" />
+			<input type="text" ng-model="memberData.lname" name="lname" id="lname" class="form-control" required />
 		</div>
 		<div class="col-md-2">
 			<label for="suffix">Suffix</label><br/>
-			<select name="suffix" id="suffix" class="form-control">
+			<select ng-model="memberData.suffix" name="suffix" id="suffix" class="form-control">
 				<option>  </option>
 				<option>Jr.</option>
 				<option>Sr.</option>
 			</select>
 			
 		</div>
+        <div class="error-container" ng-show="addmemberform.fname.$dirty && addmemberform.fname.$invalid">
+            <small class="error" ng-show="addmemberform.fname.$error.required">Please input a username</small>
+        </div>
 	</div>	
 	
 	<!-- ROW 2 -->
@@ -55,7 +60,7 @@
 			</label>
 		</div>
 		<div class="col-md-2">
-			<select name="relationship" id="relationship"  class="form-control" >
+			<select ng-model="memberData.relationship" name="relationship" id="relationship"  class="form-control" required >
 				<option>  </option>
 				<option>Spouse</option>
 				<option>Dependent</option>
@@ -76,10 +81,10 @@
 		</div>
 		<div class="col-md-2">
 			<div class="radio">
-			  <label><input type="radio" name="gender">Male</label>
+			  <label><input ng-model="memberData.gender" type="radio" name="gender" checked="checked">Male</label>
 			</div>
 			<div class="radio">
-			  <label><input type="radio" name="gender">Female</label>
+			  <label><input ng-model="memberData.gender" type="radio" name="gender">Female</label>
 			</div>
 		</div>
 		<div class="col-md-4"></div>
@@ -95,7 +100,7 @@
 		</div>
 		<div class="col-md-2">
 			<div class='input-group'>
-                <input type='text' name="dob" class="form-control" />
+                <input ng-model="memberData.dob" type='text' name="dob" class="form-control" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -115,10 +120,10 @@
 		</div>
 		<div class="col-md-2">
 			<div class="radio">
-			  <label><input type="radio" name="previous_customer" value="Yes">Yes</label>
+			  <label><input ng-model="memberData.previous_customer" type="radio" name="previous_customer" value="Yes" checked="checked" >Yes</label>
 			</div>
 			<div class="radio">
-			  <label><input type="radio" name="previous_customer" value="No">No</label>
+			  <label><input ng-model="memberData.previous_customer" type="radio" name="previous_customer" value="No">No</label>
 			</div>
         </div>
 		<div class="col-md-4"></div>
@@ -134,7 +139,7 @@
 			</label>
 		</div>
 		<div class="col-md-2">
-			<select name="prev_state" id="prev_state"  class="form-control" >
+			<select ng-model="memberData.prev_state" name="prev_state" id="prev_state"  class="form-control" required >
 				<option>MD</option>
 				<option>CA</option>
 			</select>
@@ -151,7 +156,7 @@
 			</label>
 		</div>
 		<div class="col-md-2">
-			<input type="text" name="medicalrno" id="medicalrno" class="form-control" />
+			<input ng-model="memberData.medicalrno" type="text" name="medicalrno" id="medicalrno" class="form-control" ng-minlength="8" ng-maxlength="10" required />
         </div>
 		<div class="col-md-4"></div>
 	</div>
@@ -167,7 +172,7 @@
 		</div>
 		<div class="col-md-2">
 			<div class='input-group'>
-                <input type='text' name="termination" id="termination" class="form-control" />
+                <input type='text' ng-model="memberData.termination" name="termination" id="termination" class="form-control" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -181,7 +186,7 @@
 	<br/>
 	<div class="row text-left">
 	<div class="col-md-3 col-md-offset-2">
-		<input type="submit" value="submit" class="form-control" />
+		<input type="submit" value="submit" ng-disabled="addmemberform.$invalid" class="form-control" />
 	</div>
 <!-- 	<div class="col-md-3 col-md-offset-2">
 		<input type="reset" value="reset" class="form-control" />
@@ -191,8 +196,21 @@
 </div>
 </form>
 
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/ng-idle/angular-idle.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+
+
+<script src="app.js"></script>
+<script src="scripts/controllers/mainController.js"></script>
+<script src="scripts/controllers/sessionController.js"></script>
+<script src="scripts/controllers/addMemberController.js"></script>
+<script src="scripts/services/authenticationHttpResponseInterceptor.js"></script>
+<script src="scripts/utils/sessionTimeoutDialog.js"></script>
+
 </body>
 </html>
