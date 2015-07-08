@@ -50,6 +50,25 @@ app.get('/writeData',function(req, res){
         res.send("Data missing");
     }
 });
+
+app.post('/writeData',function(req, res){
+    var applyData = "";
+
+    req.on('data', function (chunk) {
+        applyData += chunk;
+    });
+    req.on('end', function () {
+        console.log('POSTed: ' + applyData);
+        var data = JSON.parse(applyData);
+        jsonData.applyData.push(data);
+        var dataJSON = JSON.stringify(jsonData);
+        fs.writeFileSync('applyData.json', dataJSON);
+        res.status(200);
+        res.send("logged \"" + req.query.saveData + "\"");
+
+    });
+
+});
 // Read service
 app.get('/readData',function(req, res){
         res.status(200);
