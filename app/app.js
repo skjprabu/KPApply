@@ -9,7 +9,7 @@
  */
 angular
     .module('kpapply', [
-        'ngRoute', 'ngIdle', 'ui.bootstrap'
+        'ngRoute', 'ngIdle', 'ui.bootstrap', 'extendLog'
     ])
     .config(function ($routeProvider) {
         $routeProvider
