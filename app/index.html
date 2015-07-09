@@ -55,10 +55,11 @@
 			</select>
 
 		</div>
-		<div ng-cloak ng-messages="addmemberform.fname.$error" ng-if="(addmemberform.$submitted || addmemberform.fname.$touched) && addmemberform.fname.$invalid">
+
+		<div class="alert alert-danger" ng-cloak ng-messages="addmemberform.fname.$error" ng-if="(addmemberform.$submitted || addmemberform.fname.$touched) && addmemberform.fname.$invalid">
 			<div ng-message="required">First name is required</div>
 		</div>
-		<div ng-cloak ng-messages="addmemberform.lname.$error" ng-if="(addmemberform.$submitted || addmemberform.lname.$touched) && addmemberform.lname.$invalid">
+		<div class="alert alert-danger" ng-cloak ng-messages="addmemberform.lname.$error" ng-if="(addmemberform.$submitted || addmemberform.lname.$touched) && addmemberform.lname.$invalid">
 			<div ng-message="required">Last name is required</div>
 		</div>
 	</div>
@@ -81,6 +82,9 @@
 			</select>
 		</div>
 		<div class="col-md-4"></div>
+		<div class="alert alert-danger" ng-cloak ng-messages="addmemberform.lname.$error" ng-if="(addmemberform.$submitted || addmemberform.relationship.$touched) && addmemberform.relationship.$invalid">
+			<div ng-message="required">Relationship is required</div>
+		</div>
 	</div>
 
 	<!-- ROW 3 -->
@@ -123,6 +127,10 @@
 		</div>
 
 		<div class="col-md-4"></div>
+
+		<div class="alert alert-danger" ng-cloak ng-messages="addmemberform.dob.$error" ng-if="(addmemberform.$submitted || addmemberform.dob.$touched) && addmemberform.dob.$invalid">
+			<div ng-message="required">Date of birth is required</div>
+		</div>
 	</div>
 
 	<!-- ROW 5 -->
@@ -164,6 +172,9 @@
 		<div class="col-md-4"></div>
 	</div>
 
+	<div class="alert alert-danger" ng-cloak ng-messages="addmemberform.prev_state.$error" ng-if="(addmemberform.$submitted || addmemberform.prev_state.$touched) && addmemberform.prev_state.$invalid">
+		<div ng-message="required">State is required</div>
+	</div>
 	<!-- ROW 7 -->
 	<br/>
 	<div class="row text-left">
@@ -177,6 +188,12 @@
 			<input ng-model="memberData.medicalrno" type="text" name="medicalrno" id="medicalrno" class="form-control" ng-minlength="8" ng-maxlength="10" required />
         </div>
 		<div class="col-md-4"></div>
+
+		<div class="alert alert-danger" ng-cloak ng-messages="addmemberform.medicalrno.$error" ng-if="(addmemberform.$submitted || addmemberform.medicalrno.$touched) && addmemberform.medicalrno.$invalid">
+			<div ng-message="required">Medical Record Number is required</div>
+			<div ng-message="minlength">Medical Record Number should have at least 8 characters</div>
+			<div ng-message="maxlength">Medical Record Number should have a maximum of 10 characters</div>
+		</div>
 	</div>
 
 	<!-- ROW 8 -->
