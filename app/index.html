@@ -26,6 +26,8 @@
 
 <div class="container">
 
+
+
 	<!-- row 1 -->
 	<div class="row text-left">
 		<div class="col-md-4">
@@ -53,7 +55,12 @@
 			</select>
 
 		</div>
-
+		<div ng-cloak ng-messages="addmemberform.fname.$error" ng-if="(addmemberform.$submitted || addmemberform.fname.$touched) && addmemberform.fname.$invalid">
+			<div ng-message="required">First name is required</div>
+		</div>
+		<div ng-cloak ng-messages="addmemberform.lname.$error" ng-if="(addmemberform.$submitted || addmemberform.lname.$touched) && addmemberform.lname.$invalid">
+			<div ng-message="required">Last name is required</div>
+		</div>
 	</div>
 
 	<!-- ROW 2 -->
@@ -211,6 +218,7 @@
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/ng-idle/angular-idle.min.js"></script>
+<script src="bower_components/angular-messages/angular-messages.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
