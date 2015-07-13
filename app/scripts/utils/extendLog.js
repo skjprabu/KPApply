@@ -96,6 +96,7 @@ angular.module("extendLog", ['myApp.config'])
 
 
         $delegate.info = function () {
+
             var args = [].slice.call(arguments);
             var stack = (new Error()).stack.split('\n').slice(1);
             var msg = {};
@@ -113,8 +114,6 @@ angular.module("extendLog", ['myApp.config'])
                     'extra' : details[4]
                 };
             
-
-            // logTheData(args);
             logTheData(JSON.stringify(msg));
             origInfo.apply(null, args)
         };
@@ -154,7 +153,6 @@ angular.module("extendLog", ['myApp.config'])
                         .join('');
             }
 
-            // logTheData(args);
             logTheData(JSON.stringify(args));
             origError.apply(null, args)
         };

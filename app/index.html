@@ -22,7 +22,7 @@
 </div>
 
 <form name="addmemberform"  ng-controller="AddMemberController as addMemberController"
-	  ng-submit="addmemberform.$valid && addMember(memberData)" role="form" novalidate>
+	  ng-submit="addmemberform.$valid && addMember(memberData, addmemberform)" role="form" novalidate>
 
 <div class="container">
 
@@ -215,6 +215,7 @@
 			</div>
 		<div class="col-md-4"></div>
 	</div>
+	</div>
 
 	<!-- ROW 9 -->
 	<br/>
@@ -226,6 +227,10 @@
 <!-- 	<div class="col-md-3 col-md-offset-2">
 		<input type="reset" value="reset" class="form-control" />
 	</div> -->
+	<div class="col-md-3 col-md-offset-2" class="ng-hide">
+		<div class="alert alert-success" ng-if="status.success" role="alert">Successfully saved data</div>
+		<div class="alert alert-danger" ng-if="status.failure" role="alert">Error with form submission</div>
+	</div>
 	</div>
 
 </div>

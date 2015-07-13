@@ -34,6 +34,7 @@ app.get('/login', function (req, res) {
     res.status(200);
     res.send("login");
 });
+
 // Write service
 app.get('/writeData',function(req, res){
     if (req.query.saveData) {
