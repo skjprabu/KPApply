@@ -227,10 +227,8 @@
 <!-- 	<div class="col-md-3 col-md-offset-2">
 		<input type="reset" value="reset" class="form-control" />
 	</div> -->
-	<div class="col-md-3 col-md-offset-2" class="ng-hide">
-		<div class="alert alert-success" ng-if="status.success" role="alert">Successfully saved data</div>
-		<div class="alert alert-danger" ng-if="status.failure" role="alert">Error with form submission</div>
-	</div>
+
+	<alert-directive></alert-directive>
 	</div>
 
 </div>
@@ -255,6 +253,7 @@
 <script src="scripts/utils/sessionTimeoutDialog.js"></script>
 <script src="scripts/utils/exLogConfig.js"></script>
 <script type="text/javascript" src="scripts/utils/extendLog.js"></script>
+<script type="text/javascript" src="scripts/directive/alerts.js"></script>
 
 </body>
 </html>

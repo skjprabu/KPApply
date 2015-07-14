@@ -11,7 +11,8 @@ angular.module('kpapply')
     .controller('AddMemberController', ['$scope', '$log','$http', function ($scope, $log, $http) {
         $scope.memberData = {'gender': 'Male', 'previous_customer': 'Yes'};
         var logger = $log.getInstance('addMemberCOntroller');
-        $scope.status = {"success" : false, "failure" : false};
+        var ctrl = this;
+        ctrl.status = {"success" : false, "failure" : false};
 
         // in controller
         
@@ -30,13 +31,13 @@ angular.module('kpapply')
                 success(function(data, status, headers, config){
                     $scope.memberData = {'gender': 'Male', 'previous_customer': 'Yes'};
                     $scope.reset(form);
-                    $scope.status.success = true;
-                    $scope.status.failure = false;
+                    ctrl.status.success = true;
+                    ctrl.status.failure = false;
                 }).error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                    $scope.status.success = false;
-                    $scope.status.failure = true;
+                    ctrl.status.success = false;
+                    ctrl.status.failure = true;
                 });
         };
 
