@@ -1,0 +1,7 @@
+
+    <div ng-repeat="msg in addMemberCtrl.messages.messages">
+        <div ng-show="msg.type == 'success'" class="alert alert-success" role="alert">{{msg.message}}</div>
+        <div ng-show="msg.type == 'info'"  class="alert alert-info" role="alert">{{msg.message}}</div>
+        <div ng-show="msg.type == 'warn'" class="alert alert-warning" role="alert">{{msg.message}}</div>
+        <div ng-show="msg.type == 'error'" class="alert alert-danger" role="alert">{{msg.message}}</div>
+    </div>

@@ -6,4 +6,12 @@ angular.module('kpapply')
             controller : "AddMemberController",
             controllerAs : "ctrl"
         };
+    })
+    .directive('alertMessageDirective', function(){
+        return {
+            restrict : "E",
+            templateUrl : "../../views/templates/alertMessage.html",
+            controller : "AddMemberController",
+            controllerAs : "addMemberCtrl"
+        };
     });

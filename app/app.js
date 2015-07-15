@@ -30,4 +30,18 @@ angular
         IdleProvider.idle(5);
         IdleProvider.timeout(6);
         KeepaliveProvider.interval(10);
-    }]);
+    }])
+    .service('alertService', function () {
+        var alertServiceMessage = {"messages": [{"type":"info", "message" : "If you are 65+ years of age and Medicare eligible, or are under age 65 and entitled to Medicare on the basis of Social Security disability, please go to kp.org/medicare or call 1-877-619-9261 to speak to a licensed sales specialist to find out about our Kaiser Permanente Medicare health plans."}]};
+        return {
+            getMessages: function () {
+                return alertServiceMessage;
+            },
+            addMessage: function(message) {
+                alertServiceMessage.messages.push(message);
+            },
+            resetMessage:function() {
+                alertServiceMessage = {"messages": []};
+            }
+        };
+    });;

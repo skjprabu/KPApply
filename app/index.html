@@ -20,8 +20,9 @@
 		</div>
 	</div>
 </div>
-
-<form name="addmemberform"  ng-controller="AddMemberController as addMemberController"
+<div  ng-controller="AddMemberController as addMemberController">
+<alert-message-directive></alert-message-directive>
+<form name="addmemberform"
 	  ng-submit="addmemberform.$valid && addMember(memberData, addmemberform)" role="form" novalidate>
 
 <div class="container">
@@ -233,7 +234,7 @@
 
 </div>
 </form>
-
+</div>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
