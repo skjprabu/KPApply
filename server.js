@@ -2,14 +2,17 @@
 'use strict';
 
 // Load the 'express' module
-var express = require('express');
+//var express = require('express');
 var fs = require('fs');
 var jsonData = require('./applyData');
 var open = require('open');                             // opens the browser
 
-
 // Create a new Express application instance
-var app = express();
+var express = require('express')
+    , cors = require('cors')
+    , app = express();
+
+app.use(cors());
 
 app.use(express.static(__dirname + '/app')); // set the static files location /public/img will be /img for users
 
@@ -54,6 +57,7 @@ app.get('/writeData',function(req, res){
 
 app.post('/writeData',function(req, res){
     var applyData = "";
+    res.header('Access-Control-Allow-Origin', '*');
 
     req.on('data', function (chunk) {
         applyData += chunk;
@@ -70,6 +74,7 @@ app.post('/writeData',function(req, res){
     });
 
 });
+
 // Read service
 app.get('/readData',function(req, res){
         res.status(200);
