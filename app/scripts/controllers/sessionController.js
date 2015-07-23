@@ -9,7 +9,7 @@
  *
  */
 angular.module('kpapply')
-    .controller('SessionController', ['$scope', '$http', '$modal', 'Idle', function ($scope, $http, $modal, Idle, Keepalive) {
+    .controller('SessionController', ['$scope', 'sessionProvider', '$http', '$modal', 'Idle', function ($scope, sessionProvider, $http, $modal, Idle, Keepalive) {
         $scope.serviceResponse;
 
         $scope.login = function () {
@@ -20,9 +20,12 @@ angular.module('kpapply')
 
         $scope.logout = function () {
             console.log('Logging out');
-            $http.get('/logout').success(function (data) {
-
+            $http.get(sessionProvider.logoutUrl).success(function (data){
+                sessionProvider.callback();
             });
+
+        //    $http.get('/logout').success(function (data) {
+        //    });
         };
 
 
