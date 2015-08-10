@@ -1,0 +1,12 @@
+{
+
+  "80226": {
+    "counties":["Denver","Jefferson"]
+  },
+  "80439":{
+    "counties":["Clear Creek","Jefferson"]
+  },
+  "80015":{
+    "counties":["Arapahoe"]
+  }
+}

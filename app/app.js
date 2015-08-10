@@ -13,6 +13,14 @@ angular
     ])
     .config(function ($routeProvider) {
         $routeProvider
+            .when('/form', {
+                templateUrl: 'views/form.html',
+                controller: 'AddMemberController'
+            })
+            .when('/plans', {
+                templateUrl: 'views/plans.html',
+                controller: 'PlansController'
+            })
             .when('/', {
                 templateUrl: 'views/main.html',
                 controller: 'MainController'

@@ -1,0 +1,18 @@
+{
+
+  "80226_Denver": {
+    "plans":["DenverPlanA","DenverPlanB"]
+  },
+  "80226_Jefferson": {
+    "plans":["JeffersonPlanA","JeffersonPlanB"]
+  },
+  "80439_Clear Creek":{
+    "plans":["Clear CreekPlanA","Clear CreekPlanB"]
+  },
+  "80439_Jefferson":{
+    "plans":["JeffersonPlanA","JeffersonPlanB"]
+  },
+  "80015_Arapahoe":{
+  "plans":["ArapahoePlanA","ArapahoePlanB"]
+}
+}
