@@ -9,10 +9,13 @@
  */
 angular.module('kpapply')
     .controller('PlansController', ['$scope', '$http', function ($scope, $http) {
-
+        $scope.counties = [];
+        $scope.planNames;
+        $scope.zipUrl = '/data/zipCode.json';
+        $scope.plansUrl = '/data/plans.json';
         $scope.findZipCode = function (zipCode) {
             if (angular.isUndefined($scope.zipCodes)) {
-                $http.get('/data/zipCode.json').then(function (response) {
+                $http.get($scope.zipUrl).then(function (response) {
                         $scope.zipCodes = response.data;
                         $scope.findCounties(zipCode);
                     }
@@ -38,6 +41,19 @@ angular.module('kpapply')
             }
         };
 
+        $scope.getPlans = function (zipCode, county) {
+            if (angular.isUndefined($scope.plans)) {
+                $http.get($scope.plansUrl).then(function (response) {
+                        $scope.plans = response.data;
+                        $scope.getPlanNames(zipCode, county);
+                    }
+                );
+            }
+            else {
+                $scope.getPlanNames(zipCode, county);
+            }
+        }
+
         $scope.getPlanNames = function (zipCode, county) {
             var planId = zipCode + "_" + county;
             if (angular.isDefined($scope.plans[planId])) {
@@ -48,17 +64,5 @@ angular.module('kpapply')
             }
         }
 
-        $scope.getPlans = function (zipCode, county) {
-            if (angular.isUndefined($scope.plans)) {
-                $http.get('/data/plans.json').then(function (response) {
-                        $scope.plans = response.data;
-                        $scope.getPlanNames(zipCode, county);
-                    }
-                );
-            }
-            else {
-                $scope.getPlanNames(zipCode, county);
-            }
-        }
 
     }]);
