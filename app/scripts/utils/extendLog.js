@@ -1,9 +1,11 @@
- /**
- * 
- * Module to enhance the logging functionality  
- *
- *
- *  Usage : 
+/* 
+
+Points to note :
+
+    Only '$log' messages that are created using 'getInstance' will be decorated. 
+    Others are left to be as intended by Angular, with no change.
+
+How to use:
 
     1. needs 'jquery' and hopefully Angular/bootstrap downloads it. Include it in the webpage.
 
@@ -15,172 +17,95 @@
     
     4. use the instace to log different severity messages like:
         
+        logger.debug("Hi");
         logger.info("Hi");
         logger.warn("Hi");
         logger.error("Hi");
-        logger.debug("Hi");
+        logger.log("Hi");
 
-    5. Create a new instance of logger for usage at different modules. This is one way to keep track of the module wher ethe log message is being originated
+    5. Create a new instance of logger for usage at different modules. 
+        This is one way to keep track of the module where the log message is being originated
     
     6. $scope can't be used to point the origin of the log message
 
- **/
+
+*/
 
 
+// The module that provides configuring '$log'
 angular.module("extendLog", ['myApp.config'])
 .config(['$provide', 'GENERAL_CONFIG', function ($provide, GENERAL_CONFIG) {
-
-    $provide.decorator('$log', ['$delegate', function ($delegate) {
-                        // $delegate  passes the original service, $log in this case, which can be decorated as needed
-
-
-        // These are the default files that $log support
-        // we use them to pass the decorated default object
-        var origDebug = $delegate.debug,
-            origWarn = $delegate.warn,
-            origError = $delegate.error,
-            origLog = $delegate.warn,
-            origInfo = $delegate.info;
-
-
-        // We add a new function to the $delegate, the $log, called getInstance that can be used to decorate the object
-        $delegate.getInstance = function(context) {
-            return {
-             log   : enhanceLogging($delegate.log, 'LOG', context),
-             info  : enhanceLogging($delegate.info, 'INFO', context),
-             warn  : enhanceLogging($delegate.warn, 'WARN', context),
-             debug : enhanceLogging($delegate.debug, 'DEBUG', context),
-             error : enhanceLogging($delegate.error, 'ERROR', context)
-          };
-        }
-
-        function enhanceLogging(loggingFunc,logType, context) {
-            return function() {
-
-                var args = [].slice.call(arguments);
-                var stack = (new Error()).stack.split('\n').slice(1);
-                var currDate = new Date().toString();
-                
-                args[0] = [ currDate ,logType , context , args[0], stack[1] ];
-
-                // This will call the default debug overrides we wrote above with modified arguments
-                // so we won't logTheData here. Else we will have multiple logs for same issue
-                // logTheData(args);
-                loggingFunc.apply(null, args);
-            };
-        }
-       
-        /*
-         *  Method to send data to be logged to server
-         *  Use ajax call to send data to which ever servlet or service that can handle the data
-         */
-        function logTheData(msg){
-
-            if((GENERAL_CONFIG!= null) && (GENERAL_CONFIG.DEV_LOG_LOCATION != null)){
-                $.get( GENERAL_CONFIG.DEV_LOG_LOCATION, {'message':msg}, function(data){
-                    console.log(":)");
-                }).error(function(data){
-                    console.log(":(");
-                });
-            }
-        }
-
-        /*
-         * THESE ARE FALL_BACK METHODS FOR NON-'logger' INSTANCE
-         * Intercept the call to $log.debug() so we can add  
-         * our enhancement. We're going to add on a date and 
-         * time stamp to the message that will be logged.
-         */
-
-        
-
-
-        $delegate.info = function () {
-
-            var args = [].slice.call(arguments);
-            var stack = (new Error()).stack.split('\n').slice(1);
-            var msg = {};
-
-            if((typeof args[0]) == 'string'){
-                args[0] = [new Date().toString(),',',"INFO", ',ANONYMOUS,', args[0], ',', stack[1]]
-                        .join('');
-            }
-                var details = args[0];
-                msg = {
-                    'time': details[0],
-                    'Severity' : details[1],
-                    'component' : details[2],
-                    'message' : details[3],
-                    'extra' : details[4]
-                };
-            
-            logTheData(JSON.stringify(msg));
-            origInfo.apply(null, args)
-        };
-        $delegate.debug = function () {
-            var args = [].slice.call(arguments);
-            var stack = (new Error()).stack.split('\n').slice(1);                           // Use (instance of Error)'s stack to get the current line.
-            
-            if((typeof args[0]) == 'string'){
-                args[0] = [new Date().toString(),',',"DEBUG", ',ANONYMOUS,', args[0], ',', stack[1]]
-                        .join('');
-            }
-
-            // logTheData(args);
-            logTheData(JSON.stringify(args));
-            origDebug.apply(null, args)
-        };
-
-        $delegate.warn = function () {
-            var args = [].slice.call(arguments);
-            var stack = (new Error()).stack.split('\n').slice(1);
-
-            if((typeof args[0]) == 'string'){
-                args[0] = [new Date().toString(),',',"WARNING", ',ANONYMOUS,', args[0], ',', stack[1]]
-                        .join('');
-            }
-
-            // logTheData(args);
-            logTheData(JSON.stringify(args));
-            origWarn.apply(null, args)
-        };
-        $delegate.error = function () {
-            var args = [].slice.call(arguments);
-            var stack = (new Error()).stack.split('\n').slice(1);
-
-            if((typeof args[0]) == 'string'){
-                args[0] = [new Date().toString(),',',"ERROR", ',ANONYMOUS,', args[0], ',', stack[1]]
-                        .join('');
-            }
-
-            logTheData(JSON.stringify(args));
-            origError.apply(null, args)
-        };
-        $delegate.log = function () {
-            var args = [].slice.call(arguments);
-            var stack = (new Error()).stack.split('\n').slice(1);
-
-            if((typeof args[0]) == 'string'){
-                args[0] = [new Date().toString(),',',"LOG", ',ANONYMOUS,', args[0], ',', stack[1]]
-                        .join('');
-            }
-            logTheData(JSON.stringify(args));
-            origLog.apply(null, args)
-        };
-
-        // Finally return the delegate object which goes to the browser console
-        return $delegate;
-
-    }]);
+    $provide.decorator('$log',  ['$delegate', 'GENERAL_CONFIG', testLogger]);
 }]);
 
+// This function is used to decorate '$log'
+function testLogger($delegate, GENERAL_CONFIG){
 
-/**
- *    source : 
- https://docs.angularjs.org/api/auto/service/$provide
- http://stackoverflow.com/questions/20738707/angularjs-log-show-line-number
- http://solutionoptimist.com/2013/10/07/enhance-angularjs-logging-using-decorators/
- https://www.credera.com/blog/technology-insights/java/client-side-error-logging-angularjs/
- http://justinchmura.com/2014/12/08/console-history-using-angulars-log/
- *    
-**/
+    // Name the delegate that can be reused
+    var debugFn = $delegate.debug,
+        infoFn = $delegate.info,
+        warnFn = $delegate.warn,
+        errorFn = $delegate.error,
+        logFn = $delegate.log;
+
+    // getInstance returns the specific log as 
+    $delegate.getInstance = function(context) {
+        return {
+            debug : enhanceLog(context, "debug"),
+            info :  enhanceLog(context, "info"),
+            warn :  enhanceLog(context, "warn"),
+            error :  enhanceLog(context, "error"),
+            log :  enhanceLog(context, "log"),
+        };
+    }
+
+    function enhanceLog(context, logType){
+        return function(){
+            var args = [].slice.call(arguments);
+            var stack = (new Error()).stack.split('\n').slice(1);
+            var currDate = new Date().toString();
+            args = [ currDate ,logType , context , args[0], stack[1] ];
+
+            var msg = {
+                'time': args[0],
+                'Severity' : args[1],
+                'component' : args[2],
+                'message' : args[3],
+                'extra' : args[4]
+            };
+
+            logTheData(JSON.stringify(msg), GENERAL_CONFIG);
+
+            if(logType === "debug")
+                debugFn.apply(null, args);
+            else if(logType === "info")
+                infoFn.apply(null, args);
+            else if(logType === "warn")
+                warnFn.apply(null, args);
+            else if(logType === "error")
+                errorFn.apply(null, args);
+            else
+                logFn.apply(null, args);
+
+        };
+    }
+
+    return $delegate;
+}
+
+ /*
+ *  Method to send data to be logged to server
+ *  Use ajax call to send data to which ever servlet or service that can handle the data
+ */
+function logTheData(msg, GENERAL_CONFIG){
+
+    if((GENERAL_CONFIG!= null) && (GENERAL_CONFIG.DEV_LOG_LOCATION != null)){
+        $.get( GENERAL_CONFIG.DEV_LOG_LOCATION, {'message':msg}, function(data){
+            console.log(":)");
+        }).error(function(data){
+            console.log(":(");
+        });
+    } else{
+        console.log("No config set");
+    }
+}

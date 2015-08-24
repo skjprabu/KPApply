@@ -7,24 +7,47 @@
         <form name="findPlansForm" novalidate>
             <div class="form-group">
                 <label for="zipCode">Zip Code</label>
-                <input type="text" class="form-control" id="zipCode" ng-model="zipCode" ng-change="findZipCode(zipCode)"
-                       placeholder="80226" required>
+                <input type="number" name="zipCode" class="form-control" id="zipCode" ng-model="zipCode" 
+                ng-change="findZipCode(zipCode)" placeholder="80226" 
+                ng-keyup="hideNgMessage($event)"
+                ng-focus="setFocusFlag()" ng-blur="checkToRefocus(zipCode)" 
+                focus-me="{{setFocusAgainIfInvalid}}"
+                minlength="5"
+                maxlength="5"
+                valid-number
+                required>
             </div>
-
-            <div class="form-group" ng-show="counties">
+            <div class="alert alert-danger" ng-messages="findPlansForm.zipCode.$error" ng-if="showNgMessage && !dataRetrieveError" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                <span ng-message="required">You did not enter a field</span>
+                <span ng-message="minlength">Your field is too short</span>
+                <span ng-message="maxlength">Your field is too long</span>
+            </div>
+            <div class="alert alert-danger" ng-if="dataRetrieveError">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                <span>Error occurred retrieving data</span>
+            </div>
+            <div class="form-group" ng-if="counties.length">
                 <label for="county">County</label>
                 <select class="form-control" id="county" ng-model="county" ng-options="county for county in counties"
                         ng-change="getPlans(zipCode, county)">
                     <option value="">Select a county</option>
                 </select>
             </div>
-
-
         </form>
+
         <div ng-show="planNames">
             <ul ng-repeat="planName in planNames">
                 <li>{{planName}}</li>
             </ul>
         </div>
+
+        <div class="testBlock">
+        {{testing}}
+        </div>
     </div>
+
+
 </div>
